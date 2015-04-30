@@ -8,6 +8,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/codegangsta/cli"
 )
 import (
 	"encoding/base64"
@@ -59,6 +62,15 @@ func saveHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", saveHandler)
-	http.ListenAndServe(":1205", nil)
+	app := cli.NewApp()
+	app.Name = "cosm-runner"
+	app.Usage = "run/supervise a (micro)cosm"
+	app.Action = func(c *cli.Context) {
+		println("Creating a universe...")
+		initKey(c.Args().First())
+		http.HandleFunc("/", saveHandler)
+		http.ListenAndServe(":1205", nil)
+	}
+
+	app.Run(os.Args)
 }
