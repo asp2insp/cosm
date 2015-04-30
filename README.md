@@ -1,4 +1,4 @@
-# Naked Mole Rat
+# (micro)cosm
 
 Supervisor/Process runner framework for golang processes.
 Can validate, run, restart, and kill jobs that are shipped
